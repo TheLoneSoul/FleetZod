@@ -1,12 +1,22 @@
 import express, { type Request, type Response } from "express";
-const app = express();
+import databaseConnection from "./config/db.js";
+import dotenv from "dotenv";
+dotenv.config();
 
+const app = express();
 app.use(express.json());
+const port = process.env.PORT || 5000;
 
 app.get("/api", (req: Request, res: Response) => {
   res.send("Api Test successfull.");
 });
 
-app.listen(3000, () => {
-  console.log("System is running on port 3000");
-});
+const startServer = async () => {
+  await databaseConnection();
+
+  app.listen(port, () => {
+    console.log(`System is running on port: ${port}`);
+  });
+};
+
+startServer();
