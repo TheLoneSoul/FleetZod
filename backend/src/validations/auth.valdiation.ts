@@ -17,3 +17,18 @@ export const registerUserSchema = z.object({
     .min(10, "Phone number must be at least 10 digits")
     .max(15, "Phone number cannot exceed 15 digits"),
 });
+
+export type RegisterUserInput = z.infer<typeof registerUserSchema>;
+
+export const loginUserSchema = z.object({
+  email: z
+    .string({ message: "Email is required" })
+    .trim()
+    .lowercase()
+    .pipe(z.email({ message: "Email is invalid" })),
+  password: z
+    .string({ message: "Password is required" })
+    .min(1, "Password cannot be empty"),
+});
+
+export type LoginUserInput = z.infer<typeof loginUserSchema>;
