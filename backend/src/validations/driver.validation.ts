@@ -16,7 +16,29 @@ export const registerDriverSchema = z.object({
     .trim()
     .toUpperCase()
     .min(5, "License number must be at least 5 characters")
-    .max(30, "License number cannot exceed 20 characters"),
+    .max(20, "License number cannot exceed 20 characters"),
 });
 
 export type RegisterDriverInput = z.infer<typeof registerDriverSchema>;
+
+export const updateDriverLocationSchema = z.object({
+  coordinates: z.tuple([
+    z
+      .number()
+      .min(-180, "Longitude must be at least -180")
+      .max(180, "Longitude cannot exceed 180"),
+
+    z
+      .number()
+      .min(-90, "Latitude must be at least -90")
+      .max(90, "Latitude cannot exceed 90"),
+  ]),
+  heading: z
+    .number()
+    .min(0, "Vehicle direction angle must be at least 0")
+    .max(360, "Vehicle direction angle cannot exceed 360"),
+});
+
+export type UpdateDriverLocationInput = z.infer<
+  typeof updateDriverLocationSchema
+>;
