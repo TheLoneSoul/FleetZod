@@ -1,10 +1,10 @@
 import { type Request, type Response, type NextFunction } from "express";
-import { type AnyZodObject } from "zod/v3";
+import { type ZodType } from "zod";
 
 export interface IRequests {
-  body?: AnyZodObject;
-  params?: AnyZodObject;
-  query?: AnyZodObject;
+  body?: ZodType;
+  params?: ZodType;
+  query?: ZodType;
 }
 
 export const validateRequest =
@@ -15,10 +15,15 @@ export const validateRequest =
         req.body = await schema.body.parseAsync(req.body ?? {});
       }
       if (schema.params) {
-        req.params = await schema.params.parseAsync(req.params ?? {});
+        req.params = (await schema.params.parseAsync(
+          req.params ?? {},
+        )) as Record<string, string>;
       }
       if (schema.query) {
-        req.query = await schema.query.parseAsync(req.query ?? {});
+        req.query = (await schema.query.parseAsync(req.query ?? {})) as Record<
+          string,
+          unknown
+        > as any;
       }
       next();
     } catch (error) {
