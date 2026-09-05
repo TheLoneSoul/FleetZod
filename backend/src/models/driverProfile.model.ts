@@ -1,4 +1,4 @@
-import { Document, Schema, Types, model } from "mongoose";
+import { Schema, Types, model } from "mongoose";
 
 export enum VehicleType {
   BIKE = "BIKE",
@@ -12,7 +12,7 @@ export enum VerificationStatus {
   REJECTED = "REJECTED",
 }
 
-export interface IDriverProfile extends Document {
+export interface IDriverProfile {
   userId: Types.ObjectId;
   licenseNumber: string;
   vehicleType: VehicleType;

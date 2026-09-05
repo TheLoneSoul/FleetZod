@@ -1,6 +1,6 @@
-import { Schema, model, type Document, Types } from "mongoose";
+import { Schema, model, Types } from "mongoose";
 
-export interface IDriverLocation extends Document {
+export interface IDriverLocation {
   driverId: Types.ObjectId;
   location: { type: "Point"; coordinates: [number, number] };
   heading?: number;

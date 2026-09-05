@@ -1,4 +1,4 @@
-import { Schema, model, type Document, Types } from "mongoose";
+import { Schema, model, Types } from "mongoose";
 import { VehicleType } from "./driverProfile.model.js";
 
 export enum Status {
@@ -10,7 +10,7 @@ export enum Status {
   CANCELLED = "CANCELLED",
 }
 
-export interface ITrip extends Document {
+export interface ITrip {
   riderId: Types.ObjectId;
   driverId?: Types.ObjectId;
   pickupLocation: {
